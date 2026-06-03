@@ -46,7 +46,7 @@ const callClaude = async (prompt, imageBase64 = null) => {
 
 const fmt = (d) => d ? new Date(d).toLocaleDateString("ko-KR") : "";
 const today = () => new Date().toISOString().split("T")[0];
-const genId = () => Date.now().toString(36) + Math.random().toString(36).slice(2, 5);
+const genId = () => `${Date.now()}-${Math.random().toString(36).slice(2,9)}-${Math.random().toString(36).slice(2,9)}`;
 const comma = (n) => Number(n || 0).toLocaleString("ko-KR");
 
 // camelCase <-> snake_case

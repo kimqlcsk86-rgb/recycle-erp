@@ -154,7 +154,7 @@ function Dashboard({ mc, pt, sc, st, setTab }) {
     { label: "이달 계근", value: mSc.length + "건", tab: "scale", color: "#fb923c" },
     { label: "이달 순중량", value: comma(Math.round(totalW)) + "kg", tab: "scale", color: "#f472b6" },
     { label: "이달 매출", value: "₩" + comma(totalSales), tab: "statement", color: C.green },
-    { label: "이달 매입", value: "₩" + comma(totalPurchase), tab: "statement", color: "#c084fc" },
+    { label: "이달 매입", value: "₩" + comma(totalPurchase), tab: "statement", color: "#7c3aed" },
   ];
   const recent = [...sc].sort((a, b) => b.date?.localeCompare(a.date)).slice(0, 5);
   return (
@@ -439,7 +439,7 @@ function ScaleTab({ scales, mc, pt, toast, reload }) {
                     {s.memo && <div style={{ fontSize: 12, gridColumn: "span 2", color: C.textDim }}>메모: {s.memo}</div>}
                   </div>
                   <div style={{ display: "flex", gap: 6 }}>
-                    <button style={{ ...B.sm, background: "#1e3a5f" }} onClick={() => printScale(s)}>출력</button>
+                    <button style={{ ...B.sm, background: "#eff6ff" }} onClick={() => printScale(s)}>출력</button>
                     <button style={B.sm} onClick={() => open(s)}>수정</button>
                     <button style={{ ...B.sm, ...B.danger }} onClick={() => del(s.id)}>삭제</button>
                   </div>
@@ -540,7 +540,7 @@ function StatementTab({ stmts, mc, pt, scales, toast, reload }) {
       {filtered.length > 0 && (
         <div style={{ background: C.surface, border: `1px solid ${C.border}`, borderRadius: 10, padding: "10px 14px", marginBottom: 12, display: "flex", justifyContent: "space-around" }}>
           <div style={{ textAlign: "center" }}><div style={{ fontSize: 11, color: C.textDim }}>매출</div><div style={{ fontSize: 14, fontWeight: 700, color: C.green }}>₩{comma(totalSales)}</div></div>
-          <div style={{ textAlign: "center" }}><div style={{ fontSize: 11, color: C.textDim }}>매입</div><div style={{ fontSize: 14, fontWeight: 700, color: "#c084fc" }}>₩{comma(totalPurchase)}</div></div>
+          <div style={{ textAlign: "center" }}><div style={{ fontSize: 11, color: C.textDim }}>매입</div><div style={{ fontSize: 14, fontWeight: 700, color: "#7c3aed" }}>₩{comma(totalPurchase)}</div></div>
         </div>
       )}
       {sorted.length === 0 ? <Empty text="명세서 없음" /> : (
@@ -554,7 +554,7 @@ function StatementTab({ stmts, mc, pt, scales, toast, reload }) {
                 </div>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                   <span style={{ fontSize: 14, fontWeight: 600, color: C.textBright }}>{s.partnerName}</span>
-                  <span style={{ fontSize: 12, padding: "2px 8px", borderRadius: 4, background: s.type === "매출" ? "#064e3b" : "#4c1d95", color: s.type === "매출" ? C.green : "#c084fc" }}>{s.type}</span>
+                  <span style={{ fontSize: 12, padding: "2px 8px", borderRadius: 4, background: s.type === "매출" ? "#dcfce7" : "#ede9fe", color: s.type === "매출" ? "#16a34a" : "#7c3aed" }}>{s.type}</span>
                 </div>
               </div>
               {expanded === s.id && (
@@ -570,8 +570,8 @@ function StatementTab({ stmts, mc, pt, scales, toast, reload }) {
                     <div style={{ display: "flex", justifyContent: "space-between", fontSize: 11, padding: "4px 0", color: C.textDim }}><span>부가세(10%)</span><span>₩{comma(s.tax)}</span></div>
                   </div>
                   <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
-                    <button style={{ ...B.sm, background: "#1e3a5f" }} onClick={() => printStmt(s, "우리")}>우리출력</button>
-                    <button style={{ ...B.sm, background: "#1a2e1a" }} onClick={() => printStmt(s, "상대")}>상대출력</button>
+                    <button style={{ ...B.sm, background: "#eff6ff" }} onClick={() => printStmt(s, "우리")}>우리출력</button>
+                    <button style={{ ...B.sm, background: "#f0fdf4" }} onClick={() => printStmt(s, "상대")}>상대출력</button>
                     <button style={B.sm} onClick={() => open(s)}>수정</button>
                     <button style={{ ...B.sm, ...B.danger }} onClick={() => del(s.id)}>삭제</button>
                   </div>
@@ -672,7 +672,7 @@ function MF({ label, value, onChange, type = "text", placeholder, readOnly, opti
 function Row({ children }) { return <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }}>{children}</div>; }
 function Empty({ text }) { return <div style={{ textAlign: "center", padding: "48px 20px", color: C.textDim, fontSize: 13 }}>{text}</div>; }
 
-const C = { bg: "#0a0f1e", surface: "#0f1929", border: "#1a2540", green: "#a3e635", blue: "#38bdf8", text: "#e5e7eb", textBright: "#f9fafb", textMid: "#d1d5db", textDim: "#6b7280" };
-const inp = { background: C.surface, border: `1px solid ${C.border}`, borderRadius: 8, padding: "10px 12px", color: C.text, fontSize: 14, width: "100%", boxSizing: "border-box", outline: "none" };
-const P = { page: { padding: "16px 14px 80px" }, header: { display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 14 }, title: { fontSize: 18, fontWeight: 700, color: "#f9fafb" } };
-const B = { primary: { background: C.green, color: C.bg, border: "none", borderRadius: 8, padding: "10px 16px", fontWeight: 700, fontSize: 13, cursor: "pointer" }, secondary: { background: C.surface, color: C.textMid, border: `1px solid ${C.border}`, borderRadius: 8, padding: "10px 16px", fontWeight: 600, fontSize: 13, cursor: "pointer" }, sm: { background: C.surface, color: C.textMid, border: `1px solid ${C.border}`, borderRadius: 6, padding: "6px 12px", fontSize: 12, cursor: "pointer" }, danger: { background: "#3b0f0f", color: "#f87171", border: "1px solid #7f1d1d" } };
+const C = { bg: "#f5f6f8", surface: "#ffffff", border: "#e2e5ea", green: "#16a34a", blue: "#2563eb", text: "#1f2937", textBright: "#111827", textMid: "#374151", textDim: "#9ca3af" };
+const inp = { background: "#ffffff", border: `1px solid ${C.border}`, borderRadius: 8, padding: "10px 12px", color: C.text, fontSize: 14, width: "100%", boxSizing: "border-box", outline: "none" };
+const P = { page: { padding: "16px 14px 80px" }, header: { display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 14 }, title: { fontSize: 18, fontWeight: 700, color: "#111827" } };
+const B = { primary: { background: C.green, color: "#ffffff", border: "none", borderRadius: 8, padding: "10px 16px", fontWeight: 700, fontSize: 13, cursor: "pointer" }, secondary: { background: "#ffffff", color: C.textMid, border: `1px solid ${C.border}`, borderRadius: 8, padding: "10px 16px", fontWeight: 600, fontSize: 13, cursor: "pointer" }, sm: { background: "#ffffff", color: C.textMid, border: `1px solid ${C.border}`, borderRadius: 6, padding: "6px 12px", fontSize: 12, cursor: "pointer" }, danger: { background: "#fef2f2", color: "#dc2626", border: "1px solid #fecaca" } };
